@@ -1,0 +1,1 @@
+sqlcmd -S .\SQLEXPRESS -i attachDB.sql -v database="%1" -v backupfile="%2" -v root="%CD%"

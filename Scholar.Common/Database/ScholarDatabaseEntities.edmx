@@ -1,0 +1,915 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ScholarNetDatabaseModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="ScholarNetDatabaseModelStoreContainer">
+          <EntitySet Name="ArticleKeywords" EntityType="ScholarNetDatabaseModel.Store.ArticleKeywords" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Articles" EntityType="ScholarNetDatabaseModel.Store.Articles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Editions" EntityType="ScholarNetDatabaseModel.Store.Editions" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="History" EntityType="ScholarNetDatabaseModel.Store.History" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Keywords" EntityType="ScholarNetDatabaseModel.Store.Keywords" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Names" EntityType="ScholarNetDatabaseModel.Store.Names" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PersonArticles" EntityType="ScholarNetDatabaseModel.Store.PersonArticles" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Persons" EntityType="ScholarNetDatabaseModel.Store.Persons" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Publishers" EntityType="ScholarNetDatabaseModel.Store.Publishers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Regex" EntityType="ScholarNetDatabaseModel.Store.Regex" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Requests" EntityType="ScholarNetDatabaseModel.Store.Requests" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Results" EntityType="ScholarNetDatabaseModel.Store.Results" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Users" EntityType="ScholarNetDatabaseModel.Store.Users" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_ArticleKeywords_Articles" Association="ScholarNetDatabaseModel.Store.FK_ArticleKeywords_Articles">
+            <End Role="Articles" EntitySet="Articles" />
+            <End Role="ArticleKeywords" EntitySet="ArticleKeywords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ArticleKeywords_Keywords" Association="ScholarNetDatabaseModel.Store.FK_ArticleKeywords_Keywords">
+            <End Role="Keywords" EntitySet="Keywords" />
+            <End Role="ArticleKeywords" EntitySet="ArticleKeywords" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Articles_Editions" Association="ScholarNetDatabaseModel.Store.FK_Articles_Editions">
+            <End Role="Editions" EntitySet="Editions" />
+            <End Role="Articles" EntitySet="Articles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Editions_Editions" Association="ScholarNetDatabaseModel.Store.FK_Editions_Editions">
+            <End Role="Publishers" EntitySet="Publishers" />
+            <End Role="Editions" EntitySet="Editions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_History_Users" Association="ScholarNetDatabaseModel.Store.FK_History_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="History" EntitySet="History" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonArticles_Articles" Association="ScholarNetDatabaseModel.Store.FK_PersonArticles_Articles">
+            <End Role="Articles" EntitySet="Articles" />
+            <End Role="PersonArticles" EntitySet="PersonArticles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PersonArticles_Persons" Association="ScholarNetDatabaseModel.Store.FK_PersonArticles_Persons">
+            <End Role="Persons" EntitySet="Persons" />
+            <End Role="PersonArticles" EntitySet="PersonArticles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Persons_Names" Association="ScholarNetDatabaseModel.Store.FK_Persons_Names">
+            <End Role="Names" EntitySet="Names" />
+            <End Role="Persons" EntitySet="Persons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Results_Articles" Association="ScholarNetDatabaseModel.Store.FK_Results_Articles">
+            <End Role="Articles" EntitySet="Articles" />
+            <End Role="Results" EntitySet="Results" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Results_Names" Association="ScholarNetDatabaseModel.Store.FK_Results_Names">
+            <End Role="Names" EntitySet="Names" />
+            <End Role="Results" EntitySet="Results" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Results_Requests" Association="ScholarNetDatabaseModel.Store.FK_Results_Requests">
+            <End Role="Requests" EntitySet="Requests" />
+            <End Role="Results" EntitySet="Results" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="ArticleKeywords">
+          <Key>
+            <PropertyRef Name="ArticleId" />
+            <PropertyRef Name="KeywordId" />
+          </Key>
+          <Property Name="ArticleId" Type="int" Nullable="false" />
+          <Property Name="KeywordId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Articles">
+          <Key>
+            <PropertyRef Name="ArticleId" />
+          </Key>
+          <Property Name="ArticleId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Article" Type="nvarchar" Nullable="false" MaxLength="512" />
+          <Property Name="EditionId" Type="int" Nullable="false" />
+          <Property Name="Cited" Type="int" Nullable="false" />
+          <Property Name="Year" Type="int" Nullable="false" />
+          <Property Name="Url" Type="nvarchar" MaxLength="2048" />
+          <Property Name="Abstract" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Editions">
+          <Key>
+            <PropertyRef Name="EditionId" />
+          </Key>
+          <Property Name="EditionId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Edition" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="PublisherId" Type="int" Nullable="false" />
+          <Property Name="Field" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="IsReferal" Type="bit" Nullable="false" />
+          <Property Name="IsList" Type="bit" Nullable="false" />
+          <Property Name="Rating" Type="decimal" Scale="5" />
+          <Property Name="ISSN" Type="bigint" />
+        </EntityType>
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="HistoryId" />
+          </Key>
+          <Property Name="HistoryId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="Thread" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Step" Type="int" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="255" />
+          <Property Name="MiddleName" Type="nvarchar" MaxLength="255" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="255" />
+          <Property Name="StartYear" Type="int" />
+          <Property Name="EndYear" Type="int" />
+          <Property Name="PublisherId" Type="int" />
+          <Property Name="Article" Type="nvarchar" MaxLength="512" />
+          <Property Name="StartCited" Type="int" />
+          <Property Name="EndCited" Type="int" />
+        </EntityType>
+        <EntityType Name="Keywords">
+          <Key>
+            <PropertyRef Name="KeywordId" />
+          </Key>
+          <Property Name="KeywordId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Keyword" Type="nvarchar" Nullable="false" MaxLength="512" />
+        </EntityType>
+        <EntityType Name="Names">
+          <Key>
+            <PropertyRef Name="NameId" />
+          </Key>
+          <Property Name="NameId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Initials" Type="nvarchar" MaxLength="32" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="PersonArticles">
+          <Key>
+            <PropertyRef Name="PersonId" />
+            <PropertyRef Name="ArticleId" />
+          </Key>
+          <Property Name="PersonId" Type="int" Nullable="false" />
+          <Property Name="ArticleId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Persons">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Name="PersonId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="NameId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Publishers">
+          <Key>
+            <PropertyRef Name="PublisherId" />
+          </Key>
+          <Property Name="PublisherId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Publisher" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="Country" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Regex">
+          <Key>
+            <PropertyRef Name="RegexId" />
+          </Key>
+          <Property Name="RegexId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Regex" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="UrlPart" Type="nvarchar" Nullable="false" MaxLength="1024" />
+          <Property Name="IsCrawler" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Requests">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="SessionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Request" Type="nvarchar" Nullable="false" MaxLength="2048" />
+          <Property Name="Response" Type="nvarchar(max)" />
+          <Property Name="IsParsed" Type="bit" Nullable="false" />
+          <Property Name="IsMatched" Type="bit" Nullable="false" />
+          <Property Name="Language" Type="nvarchar" Nullable="false" MaxLength="32" />
+          <Property Name="Search" Type="nvarchar" MaxLength="2048" />
+          <Property Name="PageLimit" Type="int" Nullable="false" />
+          <Property Name="IsHidden" Type="bit" Nullable="false" />
+          <Property Name="StartTime" Type="datetime" Nullable="false" />
+          <Property Name="IsAdvanced" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Results">
+          <Key>
+            <PropertyRef Name="NameId" />
+            <PropertyRef Name="ArticleId" />
+          </Key>
+          <Property Name="NameId" Type="int" Nullable="false" />
+          <Property Name="ArticleId" Type="int" Nullable="false" />
+          <Property Name="RequestId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Login" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="Password" Type="nvarchar" Nullable="false" MaxLength="128" />
+          <Property Name="FirstName" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="LastName" Type="nvarchar" Nullable="false" MaxLength="255" />
+          <Property Name="RegistrationDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ArticleKeywords_Articles">
+          <End Role="Articles" Type="ScholarNetDatabaseModel.Store.Articles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ArticleKeywords" Type="ScholarNetDatabaseModel.Store.ArticleKeywords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articles">
+              <PropertyRef Name="ArticleId" />
+            </Principal>
+            <Dependent Role="ArticleKeywords">
+              <PropertyRef Name="ArticleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ArticleKeywords_Keywords">
+          <End Role="Keywords" Type="ScholarNetDatabaseModel.Store.Keywords" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ArticleKeywords" Type="ScholarNetDatabaseModel.Store.ArticleKeywords" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Keywords">
+              <PropertyRef Name="KeywordId" />
+            </Principal>
+            <Dependent Role="ArticleKeywords">
+              <PropertyRef Name="KeywordId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Articles_Editions">
+          <End Role="Editions" Type="ScholarNetDatabaseModel.Store.Editions" Multiplicity="1" />
+          <End Role="Articles" Type="ScholarNetDatabaseModel.Store.Articles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Editions">
+              <PropertyRef Name="EditionId" />
+            </Principal>
+            <Dependent Role="Articles">
+              <PropertyRef Name="EditionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Editions_Editions">
+          <End Role="Publishers" Type="ScholarNetDatabaseModel.Store.Publishers" Multiplicity="1" />
+          <End Role="Editions" Type="ScholarNetDatabaseModel.Store.Editions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publishers">
+              <PropertyRef Name="PublisherId" />
+            </Principal>
+            <Dependent Role="Editions">
+              <PropertyRef Name="PublisherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_History_Users">
+          <End Role="Users" Type="ScholarNetDatabaseModel.Store.Users" Multiplicity="1" />
+          <End Role="History" Type="ScholarNetDatabaseModel.Store.History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonArticles_Articles">
+          <End Role="Articles" Type="ScholarNetDatabaseModel.Store.Articles" Multiplicity="1" />
+          <End Role="PersonArticles" Type="ScholarNetDatabaseModel.Store.PersonArticles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articles">
+              <PropertyRef Name="ArticleId" />
+            </Principal>
+            <Dependent Role="PersonArticles">
+              <PropertyRef Name="ArticleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PersonArticles_Persons">
+          <End Role="Persons" Type="ScholarNetDatabaseModel.Store.Persons" Multiplicity="1" />
+          <End Role="PersonArticles" Type="ScholarNetDatabaseModel.Store.PersonArticles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Persons">
+              <PropertyRef Name="PersonId" />
+            </Principal>
+            <Dependent Role="PersonArticles">
+              <PropertyRef Name="PersonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Persons_Names">
+          <End Role="Names" Type="ScholarNetDatabaseModel.Store.Names" Multiplicity="1" />
+          <End Role="Persons" Type="ScholarNetDatabaseModel.Store.Persons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Names">
+              <PropertyRef Name="NameId" />
+            </Principal>
+            <Dependent Role="Persons">
+              <PropertyRef Name="NameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Results_Articles">
+          <End Role="Articles" Type="ScholarNetDatabaseModel.Store.Articles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Results" Type="ScholarNetDatabaseModel.Store.Results" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articles">
+              <PropertyRef Name="ArticleId" />
+            </Principal>
+            <Dependent Role="Results">
+              <PropertyRef Name="ArticleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Results_Names">
+          <End Role="Names" Type="ScholarNetDatabaseModel.Store.Names" Multiplicity="1" />
+          <End Role="Results" Type="ScholarNetDatabaseModel.Store.Results" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Names">
+              <PropertyRef Name="NameId" />
+            </Principal>
+            <Dependent Role="Results">
+              <PropertyRef Name="NameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Results_Requests">
+          <End Role="Requests" Type="ScholarNetDatabaseModel.Store.Requests" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Results" Type="ScholarNetDatabaseModel.Store.Results" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Requests">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="Results">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="InsertArticle" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Article" Type="nvarchar" Mode="In" />
+          <Parameter Name="EditionId" Type="int" Mode="In" />
+          <Parameter Name="Year" Type="int" Mode="In" />
+          <Parameter Name="Cited" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InsertArticleKeyword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ArticleId" Type="int" Mode="In" />
+          <Parameter Name="KeywordId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InsertEdition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Edition" Type="nvarchar" Mode="In" />
+          <Parameter Name="PublisherId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InsertKeyword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Keyword" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="InsertName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Initials" Type="nvarchar" Mode="In" />
+          <Parameter Name="LastName" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="InsertPublisher" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Publisher" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="InsertResult" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NameId" Type="int" Mode="In" />
+          <Parameter Name="ArticleId" Type="int" Mode="In" />
+          <Parameter Name="RequestId" Type="int" Mode="In" />
+        </Function>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ScholarNetDatabaseModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="ScholarDatabaseEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="InsertArticle" ReturnType="Collection(Int32)">
+            <Parameter Name="Article" Mode="In" Type="String" />
+            <Parameter Name="EditionId" Mode="In" Type="Int32" />
+            <Parameter Name="Year" Mode="In" Type="Int32" />
+            <Parameter Name="Cited" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertEdition" ReturnType="Collection(Int32)">
+            <Parameter Name="Edition" Mode="In" Type="String" />
+            <Parameter Name="PublisherId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InsertName" ReturnType="Collection(Int32)">
+            <Parameter Name="Initials" Mode="In" Type="String" />
+            <Parameter Name="LastName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertPublisher" ReturnType="Collection(Int32)">
+          <Parameter Name="Publisher" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertResult">
+            <Parameter Name="NameId" Mode="In" Type="Int32" />
+            <Parameter Name="ArticleId" Mode="In" Type="Int32" />
+            <Parameter Name="RequestId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Articles" EntityType="ScholarNetDatabaseModel.Articles" />
+          <EntitySet Name="Editions" EntityType="ScholarNetDatabaseModel.Editions" />
+          <EntitySet Name="History" EntityType="ScholarNetDatabaseModel.History" />
+          <EntitySet Name="Names" EntityType="ScholarNetDatabaseModel.Names" />
+          <EntitySet Name="Persons" EntityType="ScholarNetDatabaseModel.Persons" />
+          <EntitySet Name="Publishers" EntityType="ScholarNetDatabaseModel.Publishers" />
+          <EntitySet Name="Regex" EntityType="ScholarNetDatabaseModel.Regexes" />
+          <EntitySet Name="Requests" EntityType="ScholarNetDatabaseModel.Requests" />
+          <EntitySet Name="Results" EntityType="ScholarNetDatabaseModel.Results" />
+          <EntitySet Name="Users" EntityType="ScholarNetDatabaseModel.Users" />
+          <AssociationSet Name="FK_Articles_Editions" Association="ScholarNetDatabaseModel.FK_Articles_Editions">
+            <End Role="Editions" EntitySet="Editions" />
+            <End Role="Articles" EntitySet="Articles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Results_Articles" Association="ScholarNetDatabaseModel.FK_Results_Articles">
+            <End Role="Articles" EntitySet="Articles" />
+            <End Role="Results" EntitySet="Results" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Editions_Editions" Association="ScholarNetDatabaseModel.FK_Editions_Editions">
+            <End Role="Publishers" EntitySet="Publishers" />
+            <End Role="Editions" EntitySet="Editions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_History_Users" Association="ScholarNetDatabaseModel.FK_History_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="History" EntitySet="History" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Persons_Names" Association="ScholarNetDatabaseModel.FK_Persons_Names">
+            <End Role="Names" EntitySet="Names" />
+            <End Role="Persons" EntitySet="Persons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Results_Names" Association="ScholarNetDatabaseModel.FK_Results_Names">
+            <End Role="Names" EntitySet="Names" />
+            <End Role="Results" EntitySet="Results" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Results_Requests" Association="ScholarNetDatabaseModel.FK_Results_Requests">
+            <End Role="Requests" EntitySet="Requests" />
+            <End Role="Results" EntitySet="Results" />
+          </AssociationSet>
+          <AssociationSet Name="PersonArticles" Association="ScholarNetDatabaseModel.PersonArticles">
+            <End Role="Articles" EntitySet="Articles" />
+            <End Role="Persons" EntitySet="Persons" />
+          </AssociationSet>
+          <EntitySet Name="Keywords" EntityType="ScholarNetDatabaseModel.Keywords" />
+          <AssociationSet Name="ArticleKeywords" Association="ScholarNetDatabaseModel.ArticleKeywords">
+            <End Role="Articles" EntitySet="Articles" />
+            <End Role="Keywords" EntitySet="Keywords" />
+          </AssociationSet>
+          <FunctionImport Name="InsertKeyword" ReturnType="Collection(Int32)">
+          <Parameter Name="Keyword" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="InsertArticleKeyword">
+            <Parameter Name="ArticleId" Mode="In" Type="Int32" />
+            <Parameter Name="KeywordId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          </EntityContainer>
+        <EntityType Name="Articles">
+          <Key>
+            <PropertyRef Name="ArticleId" />
+          </Key>
+          <Property Type="Int32" Name="ArticleId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Article" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="EditionId" Nullable="false" />
+          <Property Type="Int32" Name="Cited" Nullable="false" />
+          <Property Type="Int32" Name="Year" Nullable="false" />
+          <NavigationProperty Name="Editions" Relationship="ScholarNetDatabaseModel.FK_Articles_Editions" FromRole="Articles" ToRole="Editions" />
+          <NavigationProperty Name="Results" Relationship="ScholarNetDatabaseModel.FK_Results_Articles" FromRole="Articles" ToRole="Results" />
+          <NavigationProperty Name="Persons" Relationship="ScholarNetDatabaseModel.PersonArticles" FromRole="Articles" ToRole="Persons" />
+          <NavigationProperty Name="Keywords" Relationship="ScholarNetDatabaseModel.ArticleKeywords" FromRole="Articles" ToRole="Keywords" />
+          <Property Type="String" Name="Url" MaxLength="2048" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Abstract" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Editions">
+          <Key>
+            <PropertyRef Name="EditionId" />
+          </Key>
+          <Property Type="Int32" Name="EditionId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Edition" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="PublisherId" Nullable="false" />
+          <Property Type="String" Name="Field" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsReferal" Nullable="false" />
+          <NavigationProperty Name="Articles" Relationship="ScholarNetDatabaseModel.FK_Articles_Editions" FromRole="Editions" ToRole="Articles" />
+          <NavigationProperty Name="Publishers" Relationship="ScholarNetDatabaseModel.FK_Editions_Editions" FromRole="Editions" ToRole="Publishers" />
+          <Property Type="Boolean" Name="IsList" Nullable="false" />
+          <Property Type="Decimal" Name="Rating" Precision="18" Scale="5" />
+          <Property Type="Int64" Name="ISSN" />
+        </EntityType>
+        <EntityType Name="History">
+          <Key>
+            <PropertyRef Name="HistoryId" />
+          </Key>
+          <Property Type="Int32" Name="HistoryId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="UserId" Nullable="false" />
+          <Property Type="Guid" Name="Thread" Nullable="false" />
+          <Property Type="Int32" Name="Step" Nullable="false" />
+          <Property Type="String" Name="FirstName" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="MiddleName" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LastName" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="StartYear" />
+          <Property Type="Int32" Name="EndYear" />
+          <Property Type="Int32" Name="PublisherId" />
+          <Property Type="String" Name="Article" MaxLength="512" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="StartCited" />
+          <Property Type="Int32" Name="EndCited" />
+          <NavigationProperty Name="Users" Relationship="ScholarNetDatabaseModel.FK_History_Users" FromRole="History" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Names">
+          <Key>
+            <PropertyRef Name="NameId" />
+          </Key>
+          <Property Type="Int32" Name="NameId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Initials" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LastName" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Persons" Relationship="ScholarNetDatabaseModel.FK_Persons_Names" FromRole="Names" ToRole="Persons" />
+          <NavigationProperty Name="Results" Relationship="ScholarNetDatabaseModel.FK_Results_Names" FromRole="Names" ToRole="Results" />
+        </EntityType>
+        <EntityType Name="Persons">
+          <Key>
+            <PropertyRef Name="PersonId" />
+          </Key>
+          <Property Type="Int32" Name="PersonId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="NameId" Nullable="false" />
+          <NavigationProperty Name="Names" Relationship="ScholarNetDatabaseModel.FK_Persons_Names" FromRole="Persons" ToRole="Names" />
+          <NavigationProperty Name="Articles" Relationship="ScholarNetDatabaseModel.PersonArticles" FromRole="Persons" ToRole="Articles" />
+        </EntityType>
+        <EntityType Name="Publishers">
+          <Key>
+            <PropertyRef Name="PublisherId" />
+          </Key>
+          <Property Type="Int32" Name="PublisherId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Publisher" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Editions" Relationship="ScholarNetDatabaseModel.FK_Editions_Editions" FromRole="Publishers" ToRole="Editions" />
+          <Property Type="String" Name="Country" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Regexes">
+          <Key>
+            <PropertyRef Name="RegexId" />
+          </Key>
+          <Property Type="Int32" Name="RegexId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Regex" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="UrlPart" Nullable="false" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsCrawler" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Requests">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Type="Int32" Name="RequestId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Guid" Name="SessionId" Nullable="false" />
+          <Property Type="String" Name="Request" Nullable="false" MaxLength="2048" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Response" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsParsed" Nullable="false" />
+          <Property Type="Boolean" Name="IsMatched" Nullable="false" />
+          <Property Type="String" Name="Language" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Results" Relationship="ScholarNetDatabaseModel.FK_Results_Requests" FromRole="Requests" ToRole="Results" />
+          <Property Type="String" Name="Search" MaxLength="2048" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="PageLimit" Nullable="false" />
+          <Property Type="Boolean" Name="IsHidden" Nullable="false" />
+          <Property Type="DateTime" Name="StartTime" Nullable="false" Precision="3" />
+          <Property Type="Boolean" Name="IsAdvanced" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Results">
+          <Key>
+            <PropertyRef Name="NameId" />
+            <PropertyRef Name="ArticleId" />
+          </Key>
+          <Property Type="Int32" Name="NameId" Nullable="false" />
+          <Property Type="Int32" Name="ArticleId" Nullable="false" />
+          <Property Type="Int32" Name="RequestId" Nullable="false" />
+          <NavigationProperty Name="Articles" Relationship="ScholarNetDatabaseModel.FK_Results_Articles" FromRole="Results" ToRole="Articles" />
+          <NavigationProperty Name="Names" Relationship="ScholarNetDatabaseModel.FK_Results_Names" FromRole="Results" ToRole="Names" />
+          <NavigationProperty Name="Requests" Relationship="ScholarNetDatabaseModel.FK_Results_Requests" FromRole="Results" ToRole="Requests" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Int32" Name="UserId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Login" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Password" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="RegistrationDate" Nullable="false" Precision="3" />
+          <NavigationProperty Name="History" Relationship="ScholarNetDatabaseModel.FK_History_Users" FromRole="Users" ToRole="History" />
+        </EntityType>
+        <Association Name="FK_Articles_Editions">
+          <End Type="ScholarNetDatabaseModel.Editions" Role="Editions" Multiplicity="1" />
+          <End Type="ScholarNetDatabaseModel.Articles" Role="Articles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Editions">
+              <PropertyRef Name="EditionId" />
+            </Principal>
+            <Dependent Role="Articles">
+              <PropertyRef Name="EditionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Results_Articles">
+          <End Type="ScholarNetDatabaseModel.Articles" Role="Articles" Multiplicity="1" />
+          <End Type="ScholarNetDatabaseModel.Results" Role="Results" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Articles">
+              <PropertyRef Name="ArticleId" />
+            </Principal>
+            <Dependent Role="Results">
+              <PropertyRef Name="ArticleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Editions_Editions">
+          <End Type="ScholarNetDatabaseModel.Publishers" Role="Publishers" Multiplicity="1" />
+          <End Type="ScholarNetDatabaseModel.Editions" Role="Editions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Publishers">
+              <PropertyRef Name="PublisherId" />
+            </Principal>
+            <Dependent Role="Editions">
+              <PropertyRef Name="PublisherId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_History_Users">
+          <End Type="ScholarNetDatabaseModel.Users" Role="Users" Multiplicity="1" />
+          <End Type="ScholarNetDatabaseModel.History" Role="History" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="History">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Persons_Names">
+          <End Type="ScholarNetDatabaseModel.Names" Role="Names" Multiplicity="1" />
+          <End Type="ScholarNetDatabaseModel.Persons" Role="Persons" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Names">
+              <PropertyRef Name="NameId" />
+            </Principal>
+            <Dependent Role="Persons">
+              <PropertyRef Name="NameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Results_Names">
+          <End Type="ScholarNetDatabaseModel.Names" Role="Names" Multiplicity="1" />
+          <End Type="ScholarNetDatabaseModel.Results" Role="Results" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Names">
+              <PropertyRef Name="NameId" />
+            </Principal>
+            <Dependent Role="Results">
+              <PropertyRef Name="NameId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Results_Requests">
+          <End Type="ScholarNetDatabaseModel.Requests" Role="Requests" Multiplicity="1" />
+          <End Type="ScholarNetDatabaseModel.Results" Role="Results" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Requests">
+              <PropertyRef Name="RequestId" />
+            </Principal>
+            <Dependent Role="Results">
+              <PropertyRef Name="RequestId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="PersonArticles">
+          <End Type="ScholarNetDatabaseModel.Articles" Role="Articles" Multiplicity="*" />
+          <End Type="ScholarNetDatabaseModel.Persons" Role="Persons" Multiplicity="*" />
+        </Association>
+        <EntityType Name="Keywords">
+          <Key>
+            <PropertyRef Name="KeywordId" />
+          </Key>
+          <Property Type="Int32" Name="KeywordId" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Keyword" Nullable="false" MaxLength="512" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Articles" Relationship="ScholarNetDatabaseModel.ArticleKeywords" FromRole="Keywords" ToRole="Articles" />
+        </EntityType>
+        <Association Name="ArticleKeywords">
+          <End Type="ScholarNetDatabaseModel.Articles" Role="Articles" Multiplicity="*" />
+          <End Type="ScholarNetDatabaseModel.Keywords" Role="Keywords" Multiplicity="*" />
+        </Association>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ScholarNetDatabaseModelStoreContainer" CdmEntityContainer="ScholarDatabaseEntities">
+          <FunctionImportMapping FunctionImportName="InsertArticle" FunctionName="ScholarNetDatabaseModel.Store.InsertArticle" />
+          <FunctionImportMapping FunctionImportName="InsertEdition" FunctionName="ScholarNetDatabaseModel.Store.InsertEdition" />
+          <FunctionImportMapping FunctionImportName="InsertName" FunctionName="ScholarNetDatabaseModel.Store.InsertName" />
+          <FunctionImportMapping FunctionImportName="InsertPublisher" FunctionName="ScholarNetDatabaseModel.Store.InsertPublisher" />
+          <FunctionImportMapping FunctionImportName="InsertResult" FunctionName="ScholarNetDatabaseModel.Store.InsertResult" />
+          <EntitySetMapping Name="Articles">
+            <EntityTypeMapping TypeName="ScholarNetDatabaseModel.Articles">
+              <MappingFragment StoreEntitySet="Articles">
+                <ScalarProperty Name="Abstract" ColumnName="Abstract" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Cited" ColumnName="Cited" />
+                <ScalarProperty Name="EditionId" ColumnName="EditionId" />
+                <ScalarProperty Name="Article" ColumnName="Article" />
+                <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Editions">
+            <EntityTypeMapping TypeName="ScholarNetDatabaseModel.Editions">
+              <MappingFragment StoreEntitySet="Editions">
+                <ScalarProperty Name="ISSN" ColumnName="ISSN" />
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="IsList" ColumnName="IsList" />
+                <ScalarProperty Name="IsReferal" ColumnName="IsReferal" />
+                <ScalarProperty Name="Field" ColumnName="Field" />
+                <ScalarProperty Name="PublisherId" ColumnName="PublisherId" />
+                <ScalarProperty Name="Edition" ColumnName="Edition" />
+                <ScalarProperty Name="EditionId" ColumnName="EditionId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="History">
+            <EntityTypeMapping TypeName="ScholarNetDatabaseModel.History">
+              <MappingFragment StoreEntitySet="History">
+                <ScalarProperty Name="EndCited" ColumnName="EndCited" />
+                <ScalarProperty Name="StartCited" ColumnName="StartCited" />
+                <ScalarProperty Name="Article" ColumnName="Article" />
+                <ScalarProperty Name="PublisherId" ColumnName="PublisherId" />
+                <ScalarProperty Name="EndYear" ColumnName="EndYear" />
+                <ScalarProperty Name="StartYear" ColumnName="StartYear" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Step" ColumnName="Step" />
+                <ScalarProperty Name="Thread" ColumnName="Thread" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="HistoryId" ColumnName="HistoryId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Names">
+            <EntityTypeMapping TypeName="ScholarNetDatabaseModel.Names">
+              <MappingFragment StoreEntitySet="Names">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Initials" ColumnName="Initials" />
+                <ScalarProperty Name="NameId" ColumnName="NameId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Persons">
+            <EntityTypeMapping TypeName="ScholarNetDatabaseModel.Persons">
+              <MappingFragment StoreEntitySet="Persons">
+                <ScalarProperty Name="NameId" ColumnName="NameId" />
+                <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Publishers">
+            <EntityTypeMapping TypeName="ScholarNetDatabaseModel.Publishers">
+              <MappingFragment StoreEntitySet="Publishers">
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Publisher" ColumnName="Publisher" />
+                <ScalarProperty Name="PublisherId" ColumnName="PublisherId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regex">
+            <EntityTypeMapping TypeName="ScholarNetDatabaseModel.Regexes">
+              <MappingFragment StoreEntitySet="Regex">
+                <ScalarProperty Name="IsCrawler" ColumnName="IsCrawler" />
+                <ScalarProperty Name="UrlPart" ColumnName="UrlPart" />
+                <ScalarProperty Name="Regex" ColumnName="Regex" />
+                <ScalarProperty Name="RegexId" ColumnName="RegexId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Requests">
+            <EntityTypeMapping TypeName="ScholarNetDatabaseModel.Requests">
+              <MappingFragment StoreEntitySet="Requests">
+                <ScalarProperty Name="IsAdvanced" ColumnName="IsAdvanced" />
+                <ScalarProperty Name="StartTime" ColumnName="StartTime" />
+                <ScalarProperty Name="IsHidden" ColumnName="IsHidden" />
+                <ScalarProperty Name="PageLimit" ColumnName="PageLimit" />
+                <ScalarProperty Name="Search" ColumnName="Search" />
+                <ScalarProperty Name="Language" ColumnName="Language" />
+                <ScalarProperty Name="IsMatched" ColumnName="IsMatched" />
+                <ScalarProperty Name="IsParsed" ColumnName="IsParsed" />
+                <ScalarProperty Name="Response" ColumnName="Response" />
+                <ScalarProperty Name="Request" ColumnName="Request" />
+                <ScalarProperty Name="SessionId" ColumnName="SessionId" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Results">
+            <EntityTypeMapping TypeName="ScholarNetDatabaseModel.Results">
+              <MappingFragment StoreEntitySet="Results">
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
+                <ScalarProperty Name="NameId" ColumnName="NameId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="ScholarNetDatabaseModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="RegistrationDate" ColumnName="RegistrationDate" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="PersonArticles" TypeName="ScholarNetDatabaseModel.PersonArticles" StoreEntitySet="PersonArticles">
+            <EndProperty Name="Persons">
+              <ScalarProperty Name="PersonId" ColumnName="PersonId" />
+            </EndProperty>
+            <EndProperty Name="Articles">
+              <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="Keywords">
+            <EntityTypeMapping TypeName="ScholarNetDatabaseModel.Keywords">
+              <MappingFragment StoreEntitySet="Keywords">
+                <ScalarProperty Name="Keyword" ColumnName="Keyword" />
+                <ScalarProperty Name="KeywordId" ColumnName="KeywordId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ArticleKeywords" TypeName="ScholarNetDatabaseModel.ArticleKeywords" StoreEntitySet="ArticleKeywords">
+            <EndProperty Name="Keywords">
+              <ScalarProperty Name="KeywordId" ColumnName="KeywordId" />
+            </EndProperty>
+            <EndProperty Name="Articles">
+              <ScalarProperty Name="ArticleId" ColumnName="ArticleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <FunctionImportMapping FunctionImportName="InsertKeyword" FunctionName="ScholarNetDatabaseModel.Store.InsertKeyword" />
+          <FunctionImportMapping FunctionImportName="InsertArticleKeyword" FunctionName="ScholarNetDatabaseModel.Store.InsertArticleKeyword" />
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="ScholarDatabaseEntities">
+        <EntityTypeShape EntityType="ScholarNetDatabaseModel.Articles" Width="1.5" PointX="0.75" PointY="4.375" Height="2.7494921874999996" />
+        <EntityTypeShape EntityType="ScholarNetDatabaseModel.Editions" Width="1.5" PointX="0.625" PointY="7.625" Height="2.5571907552083335" />
+        <EntityTypeShape EntityType="ScholarNetDatabaseModel.History" Width="1.5" PointX="6.625" PointY="0.75" Height="3.7109993489583282" />
+        <EntityTypeShape EntityType="ScholarNetDatabaseModel.Names" Width="1.5" PointX="4.625" PointY="0.75" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="ScholarNetDatabaseModel.Persons" Width="1.5" PointX="4.75" PointY="4.125" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="ScholarNetDatabaseModel.Publishers" Width="1.5" PointX="3" PointY="7.125" Height="1.595683593749996" />
+        <EntityTypeShape EntityType="ScholarNetDatabaseModel.Regexes" Width="1.5" PointX="6.625" PointY="4.875" Height="1.5956835937500102" />
+        <EntityTypeShape EntityType="ScholarNetDatabaseModel.Requests" Width="1.5" PointX="0.75" PointY="0.75" Height="2.5571907552083246" />
+        <EntityTypeShape EntityType="ScholarNetDatabaseModel.Results" Width="1.5" PointX="2.75" PointY="0.75" Height="2.1725878906250102" />
+        <EntityTypeShape EntityType="ScholarNetDatabaseModel.Users" Width="1.5" PointX="8.625" PointY="0.75" Height="2.3648893229166674" />
+        <AssociationConnector Association="ScholarNetDatabaseModel.FK_Articles_Editions" >
+          <ConnectorPoint PointX="1.5" PointY="7.625" />
+          <ConnectorPoint PointX="1.5" PointY="6.9994921875" />
+        </AssociationConnector>
+        <AssociationConnector Association="ScholarNetDatabaseModel.FK_Results_Articles" >
+          <ConnectorPoint PointX="2.375" PointY="5.62474609375" />
+          <ConnectorPoint PointX="3.5" PointY="5.62474609375" />
+          <ConnectorPoint PointX="3.5" PointY="2.9225878906250102" />
+        </AssociationConnector>
+        <AssociationConnector Association="ScholarNetDatabaseModel.FK_Editions_Editions" >
+          <ConnectorPoint PointX="3" PointY="8.172841796874998" />
+          <ConnectorPoint PointX="2.125" PointY="8.172841796874998" />
+        </AssociationConnector>
+        <AssociationConnector Association="ScholarNetDatabaseModel.FK_History_Users" >
+          <ConnectorPoint PointX="8.625" PointY="1.9324446614583337" />
+          <ConnectorPoint PointX="8.125" PointY="1.9324446614583337" />
+        </AssociationConnector>
+        <AssociationConnector Association="ScholarNetDatabaseModel.FK_Persons_Names" >
+          <ConnectorPoint PointX="5.4375" PointY="2.7302864583333388" />
+          <ConnectorPoint PointX="5.4375" PointY="4.125" />
+        </AssociationConnector>
+        <AssociationConnector Association="ScholarNetDatabaseModel.FK_Results_Names" >
+          <ConnectorPoint PointX="4.625" PointY="1.7401432291666694" />
+          <ConnectorPoint PointX="4.25" PointY="1.7401432291666694" />
+        </AssociationConnector>
+        <AssociationConnector Association="ScholarNetDatabaseModel.FK_Results_Requests" >
+          <ConnectorPoint PointX="2.25" PointY="1.2306469726562526" />
+          <ConnectorPoint PointX="2.75" PointY="1.2306469726562526" />
+        </AssociationConnector>
+        <AssociationConnector Association="ScholarNetDatabaseModel.PersonArticles" >
+          <ConnectorPoint PointX="2.375" PointY="4.874873046875" />
+          <ConnectorPoint PointX="3.4166666666666665" PointY="4.874873046874999" />
+          <ConnectorPoint PointX="3.5833333333333335" PointY="4.874873046875" />
+          <ConnectorPoint PointX="4.75" PointY="4.874873046875" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="ScholarNetDatabaseModel.Keywords" Width="1.5" PointX="5" PointY="6.875" Height="1.5956835937500031" />
+        <AssociationConnector Association="ScholarNetDatabaseModel.ArticleKeywords" >
+          <ConnectorPoint PointX="2.375" PointY="6.4252420130208332" />
+          <ConnectorPoint PointX="6.40625" PointY="6.4252420130208332" />
+          <ConnectorPoint PointX="6.40625" PointY="6.875" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

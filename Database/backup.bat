@@ -1,0 +1,1 @@
+sqlcmd -S .\SQLEXPRESS2012 -Q "BACKUP DATABASE ScholarNetDatabase TO DISK = 'C:\ScholarNetDatabase.bak' WITH FORMAT;"
